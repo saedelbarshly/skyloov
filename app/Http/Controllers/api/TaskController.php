@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Filters\TaskFilter;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Http\Requests\TaskReqeust;
@@ -13,12 +14,13 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(TaskFilter $filter)
     {
         try {
-            $tasks = Task::paginate(10);
+            $tasks = Task::filter($filter)->paginate(10);
             return TaskResource::collection($tasks)->response()->getData(true);
         } catch (\Throwable $th) {
+            dd($th);
             return response()->json(['message' => "Somthing went wrong !"], 400);
         }
     }

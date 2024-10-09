@@ -16,25 +16,6 @@ class TaskReqeust extends FormRequest
     }
 
     
-    protected function onCreate()
-    {
-        return [
-            'title' => ['required','string','max:255'],
-            'description' => ['nullable','string'],
-            'status' => ['required', new Enum(TaskStatus::class)],
-            'due_date' => ['required','date','after:today'],
-        ];
-    }
-
-    protected function onUpdate()
-    {
-        return [
-            'title' => ['required','string','max:255'],
-            'description' => ['require','string'],
-            'status' => ['required', new Enum(TaskStatus::class)],
-            'due_date' => ['required','date','after:today'],
-        ];
-    }
 
 
     /**
@@ -44,7 +25,12 @@ class TaskReqeust extends FormRequest
      */
     public function rules(): array
     {
-        return $this->isMethod('put') ? $this->onUpdate() : $this->onCreate();
+        return [
+            'title' => ['required','string','max:255'],
+            'description' => ['nullable','string'],
+            'status' => ['required', new Enum(TaskStatus::class)],
+            'due_date' => ['required','date','after:today'],
+        ];
     }
 
 
