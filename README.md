@@ -9,7 +9,7 @@ First, I would like to thank you for the good communication and also for this ta
 
 3- run migrate
 
-4- run db:seed will add many tasks with for test
+4- run db:seed will add many tasks for test
 
 6- api collection will be in attached with mail also with repo
 
