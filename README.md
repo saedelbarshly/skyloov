@@ -29,9 +29,10 @@ You can filter tasks by:
 If no query parameters are provided, all tasks will be returned, paginated by default
 
 Error Handling
+
 Api Resource
+
 Unit and Integration Tests
 
 ##
-If there is any part that needs clarification, do not hesitate to call me, I will gladly do so.
-Best Regards 😉
+If there is any part that needs clarification, do not hesitate to call me, I will gladly do so , Best Regards 😉
