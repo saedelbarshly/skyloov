@@ -4,7 +4,6 @@ namespace App\Http\Controllers\api;
 
 use App\Filters\TaskFilter;
 use App\Models\Task;
-use Illuminate\Http\Request;
 use App\Http\Requests\TaskReqeust;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\TaskResource;
@@ -17,10 +16,9 @@ class TaskController extends Controller
     public function index(TaskFilter $filter)
     {
         try {
-            $tasks = Task::filter($filter)->paginate(10);
+            $tasks = Task::filter($filter)->orderBy('due_date', 'asc')->paginate(10);
             return TaskResource::collection($tasks)->response()->getData(true);
         } catch (\Throwable $th) {
-            dd($th);
             return response()->json(['message' => "Somthing went wrong !"], 400);
         }
     }
@@ -32,7 +30,7 @@ class TaskController extends Controller
     {
         try {
             $task = Task::create($request->only(['title', 'description', 'status', 'due_date']));
-            return response()->json(['message' => 'Task created successfully ✅','data' => new TaskResource($task)], 201);  
+            return response()->json(['message' => 'Task created successfully ✅', 'data' => new TaskResource($task)], 201);
         } catch (\Throwable $th) {
             return response()->json(['message' => "Somthing went wrong !"], 400);
         }
@@ -41,9 +39,10 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show($id)
     {
         try {
+            $task = Task::findOrFail($id);
             return new TaskResource($task);
         } catch (\Throwable $th) {
             return response()->json(['message' => "Somthing went wrong !"], 400);
@@ -53,11 +52,12 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TaskReqeust $request, Task $task)
+    public function update(TaskReqeust $request, $id)
     {
-         try {
+        try {
+            $task = Task::findOrFail($id);
             $task->update($request->only(['title', 'description', 'status', 'due_date']));
-            return response()->json(['message' => 'Task updated successfully ✅','data' => new TaskResource($task)], 200);  
+            return response()->json(['message' => 'Task updated successfully ✅', 'data' => new TaskResource($task)], 200);
         } catch (\Throwable $th) {
             return response()->json(['message' => "Somthing went wrong !"], 400);
         }
@@ -66,11 +66,12 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy($id)
     {
         try {
+            $task = Task::findOrFail($id);
             $task->delete();
-            return response()->json(['message' => 'Task deleted successfully ✅'], 200);    
+            return response()->json(['message' => 'Task deleted successfully ✅']);
         } catch (\Throwable $th) {
             return response()->json(['message' => "Somthing went wrong !"], 400);
         }

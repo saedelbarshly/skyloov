@@ -22,7 +22,8 @@ class TaskFactory extends Factory
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
             'status' => $this->faker->randomElement(TaskStatus::values()),
-            'due_date' => Carbon::now()->addDays(rand(1, 365)),
+            // 'due_date' => Carbon::now()->addDays(rand(1, 365)),
+            'due_date' => $this->faker->dateTimeBetween('now', '+1 month'),
         ];
     }
 }
