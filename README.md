@@ -34,5 +34,7 @@ Api Resource
 
 Unit and Integration Tests
 
+I did refactor for code by repository pattern in this branch refactorTaskByRepositoryPattern
+
 ##
 If there is any part that needs clarification, do not hesitate to call me, I will gladly do so , Best Regards 😉
