@@ -5,7 +5,7 @@ use App\Enums\TaskStatus;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskReqeust extends FormRequest
+class TaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,9 +14,6 @@ class TaskReqeust extends FormRequest
     {
         return true;
     }
-
-    
-
 
     /**
      * Get the validation rules that apply to the request.

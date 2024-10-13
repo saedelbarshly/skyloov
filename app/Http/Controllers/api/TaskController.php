@@ -4,8 +4,8 @@ namespace App\Http\Controllers\api;
 
 use App\Filters\TaskFilter;
 use App\Models\Task;
-use App\Http\Requests\TaskReqeust;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TaskRequest;
 use App\Http\Resources\TaskResource;
 
 class TaskController extends Controller
@@ -26,7 +26,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TaskReqeust $request)
+    public function store(TaskRequest $request)
     {
         try {
             $task = Task::create($request->only(['title', 'description', 'status', 'due_date']));
@@ -43,7 +43,7 @@ class TaskController extends Controller
     {
         try {
             $task = Task::findOrFail($id);
-            return new TaskResource($task);
+            return response()->json(new TaskResource($task));
         } catch (\Throwable $th) {
             return response()->json(['message' => "Task not found !"], 404);
         }
@@ -52,7 +52,7 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TaskReqeust $request, $id)
+    public function update(TaskRequest $request, $id)
     {
         try {
             $task = Task::findOrFail($id);
