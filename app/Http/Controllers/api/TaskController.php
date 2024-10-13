@@ -45,7 +45,7 @@ class TaskController extends Controller
             $task = Task::findOrFail($id);
             return new TaskResource($task);
         } catch (\Throwable $th) {
-            return response()->json(['message' => "Somthing went wrong !"], 400);
+            return response()->json(['message' => "Task not found !"], 404);
         }
     }
 
@@ -59,7 +59,7 @@ class TaskController extends Controller
             $task->update($request->only(['title', 'description', 'status', 'due_date']));
             return response()->json(['message' => 'Task updated successfully ✅', 'data' => new TaskResource($task)], 200);
         } catch (\Throwable $th) {
-            return response()->json(['message' => "Somthing went wrong !"], 400);
+            return response()->json(['message' => "Task not found !"], 404);
         }
     }
 
@@ -73,7 +73,7 @@ class TaskController extends Controller
             $task->delete();
             return response()->json(['message' => 'Task deleted successfully ✅']);
         } catch (\Throwable $th) {
-            return response()->json(['message' => "Somthing went wrong !"], 400);
+            return response()->json(['message' => "Task not found !"], 404);
         }
     }
 }
