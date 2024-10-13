@@ -16,7 +16,7 @@ class TaskController extends Controller
     public function index(TaskFilter $filter)
     {
         try {
-            $tasks = Task::filter($filter)->orderBy('due_date', 'asc')->paginate(10);
+            $tasks = Task::filter($filter)->orderBy('due_date', 'asc')->simplePaginate(10);
             return response()->json(TaskResource::collection($tasks)->response()->getData(true));
         } catch (\Throwable $th) {
             return response()->json(['message' => "Somthing went wrong !"], 400);
