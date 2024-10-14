@@ -8,7 +8,8 @@ class TaskFilter extends Filters
 
     public function title($title)
     {
-        return $this->builder->whereLike('title',"%$title%"); 
+        // return $this->builder->whereRaw("MATCH(title) AGAINST(?)", [$title]); 
+        return $this->builder->whereFullText("title",$title); 
     }
     public function status($status)
     {

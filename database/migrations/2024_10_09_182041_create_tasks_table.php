@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('due_date');
             $table->index('status');
             $table->index('due_date');
+            $table->fullText('title')->language('english');
             $table->timestamps();
         });
     }
