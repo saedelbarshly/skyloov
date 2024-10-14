@@ -9,7 +9,7 @@ class TaskRepository implements TaskRepositoryInterface
 {
     public function getAllTasks(TaskFilter $filter, int $perPage)
     {
-        return Task::filter($filter)->orderBy('due_date', 'asc')->paginate($perPage);
+        return Task::filter($filter)->orderBy('due_date', 'asc')->simplePaginate($perPage);
     }
 
     public function createTask(array $data)
